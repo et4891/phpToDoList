@@ -11,3 +11,9 @@ if (!isset($_SESSION['user_id']))
 {
 	die('You are not signed in.');
 }
+
+
+
+function dd($var) {
+		return '<pre>' . print_r($var, true) . '</pre>';
+	}

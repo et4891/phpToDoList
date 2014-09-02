@@ -9,7 +9,7 @@ if (isset($_POST['name']))
 	if (!empty($name))
 	{
 		$addedQuery = $db->prepare("
-				INSERT INTO items (name, user, done, created)
+				INSERT INTO phpToDoList_items (name, user, done, created)
 				VALUES (:name, :user, 0, NOW())
 			");
 

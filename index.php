@@ -1,8 +1,9 @@
 <?php 
 require_once 'app/init.php';
+
 $itemsQuery = $db->prepare("
 		SELECT id, name, done
-		FROM items
+		FROM phpToDoList_Items
 		WHERE user = :user
 	");
 
