@@ -2,7 +2,7 @@
 require_once 'app/init.php';
 
 $itemsQuery = $db->prepare("
-		SELECT id, name, done
+		SELECT id, todoText, done
 		FROM phpToDoList_Items
 		WHERE user = :user
 	");
@@ -15,7 +15,7 @@ $itemsQuery->execute([
 //use array() instead of [] if error happens in servers
 $items = $itemsQuery->rowCount() ? $itemsQuery : [];
 
- ?>
+?>
 
 <!doctype html>
 <html lang="en">
@@ -39,8 +39,11 @@ $items = $itemsQuery->rowCount() ? $itemsQuery : [];
 			<ul class="items">
 				<?php foreach($items as $item): ?>
 					<li>
-						<span class="item<?php echo $item['done'] ? ' done' : '' ?>"><?php echo $item['name']; ?></span>
+						<span class="item<?php echo $item['done'] ? ' done' : '' ?>"><?php echo $item['todoText']; ?></span>
 						<?php if(!$item['done']): ?>
+							<!-- the as=done here means as is an action which is used in done.php  -->
+							<!-- if as is done then a query will happen in done.php -->
+							<!-- &item equals the item id in order to change the class -->
 							<a href="done.php?as=done&item=<?php echo $item['id']; ?>" class="done-button">Mark as done</a>
 						<?php endif ?>
 					</li>
@@ -51,7 +54,7 @@ $items = $itemsQuery->rowCount() ? $itemsQuery : [];
 		<?php endif ?>
 
 		<form class="item-add" action="add.php" method="post">
-			<input type="text" name="name" placeholder="Type a new item here." class="input" autocomplete="off" required>
+			<input type="text" name="todoText" placeholder="Type a new item here." class="input" autocomplete="off" required>
 			<input type="submit" value="Add" class="submit">
 		</form>
 	</div>

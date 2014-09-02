@@ -2,20 +2,20 @@
 
 require_once 'app/init.php';
 
-if (isset($_POST['name']))
+if (isset($_POST['todoText']))
 {
-	$name = trim($_POST['name']);
+	$todoText = trim($_POST['todoText']);
 
-	if (!empty($name))
+	if (!empty($todoText))
 	{
 		$addedQuery = $db->prepare("
-				INSERT INTO phpToDoList_items (name, user, done, created)
-				VALUES (:name, :user, 0, NOW())
+				INSERT INTO phpToDoList_items (todoText, user, done, created)
+				VALUES (:todoText, :user, 0, NOW())
 			");
 
 		//use array() instead of [] if error happens in servers
 		$addedQuery->execute([
-				'name' => $name,
+				'todoText' => $todoText,
 				'user' => $_SESSION['user_id']
 			]);
 	}
