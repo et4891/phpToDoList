@@ -42,15 +42,17 @@ $items = $itemsQuery->rowCount() ? $itemsQuery : array();
 						<span class="item<?php echo $item['done'] ? ' done' : '' ?>">
 							<?php echo $item['todoText']; ?>
 						</span>
+						<?php if($item['done']): ?>
 							<a href="delete.php?as=delete&item=<?php echo $item['id']; ?>" class="delete-button">Delete Task</a>
+						<?php endif; ?>	
 						<?php if(!$item['done']): ?>
 							<!-- the as=done here means as is an action which is used in done.php  -->
 							<!-- if as is done then a query will happen in done.php -->
 							<!-- &item equals the item id in order to change the class -->
 							<a href="done.php?as=done&item=<?php echo $item['id']; ?>" class="done-button">Mark as done</a>
-						<?php endif ?>
+						<?php endif; ?>
 					</li>
-				<?php endforeach ?>
+				<?php endforeach; ?>
 			</ul>
 		<?php else: ?>
 			<p>You haven't added any items yet.</p>
