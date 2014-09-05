@@ -3,17 +3,17 @@ require_once 'app/init.php';
 
 $itemsQuery = $db->prepare("
 		SELECT id, todoText, done
-		FROM phpToDoList_Items
+		FROM phptodolist_items
 		WHERE user = :user
 	");
 
 //use array() instead of [] if error happens in servers
-$itemsQuery->execute([
+$itemsQuery->execute(array(
 		'user' => $_SESSION['user_id']
-	]);
+	));
 
 //use array() instead of [] if error happens in servers
-$items = $itemsQuery->rowCount() ? $itemsQuery : [];
+$items = $itemsQuery->rowCount() ? $itemsQuery : array();
 
 ?>
 
@@ -39,7 +39,10 @@ $items = $itemsQuery->rowCount() ? $itemsQuery : [];
 			<ul class="items">
 				<?php foreach($items as $item): ?>
 					<li>
-						<span class="item<?php echo $item['done'] ? ' done' : '' ?>"><?php echo $item['todoText']; ?></span>
+						<span class="item<?php echo $item['done'] ? ' done' : '' ?>">
+							<?php echo $item['todoText']; ?>
+						</span>
+							<a href="delete.php?as=delete&item=<?php echo $item['id']; ?>" class="delete-button">Delete Task</a>
 						<?php if(!$item['done']): ?>
 							<!-- the as=done here means as is an action which is used in done.php  -->
 							<!-- if as is done then a query will happen in done.php -->

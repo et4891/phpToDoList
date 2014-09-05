@@ -42,8 +42,10 @@ a {
 	list-style-type: none;
 }
 
-.items li:hover .done-button {
+.done-button:hover,
+.delete-button:hover {
 	opacity: 1;
+	color: red;
 }
 
 .items .item.done {
@@ -67,7 +69,8 @@ a {
 
 /* Done button */
 
-.done-button {
+.done-button,
+.delete-button {
 	display:inline-block;
 	font-size: .8em;
 	background-color: #a9dfe1;
