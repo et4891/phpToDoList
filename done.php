@@ -13,7 +13,7 @@ if (isset($_GET['as'], $_GET['item']))
 	switch ($as) {
 		case 'done':
 			$doneQuery = $db->prepare("
-					UPDATE phptodolist_items
+					UPDATE ET_TodoList
 					SET done = 1
 					WHERE id = :item
 					AND user = :user
