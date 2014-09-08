@@ -4,7 +4,7 @@ require_once 'app/init.php';
 
 if (isset($_POST['todoText']))
 {
-	$todoText = trim($_POST['todoText']);
+	$todoText = htmlentities(trim($_POST['todoText']), ENT_QUOTES);
 
 	if (!empty($todoText))
 	{
