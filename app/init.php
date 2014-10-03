@@ -1,7 +1,7 @@
 <?php
 $_SESSION['user_id'] = 1;
 
-$db = new PDO('mysql:dbname=SharingDatabase;host=68.178.143.9', 'SharingDatabase', 'Sharing4513308!'); 
+$db = new PDO('mysql:dbname=xxxxx;host=xxxxx', 'xxxxx', 'xxxxx!'); 
 
 // Handle this in some other way
 if (!isset($_SESSION['user_id']))
