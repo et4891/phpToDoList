@@ -4,16 +4,17 @@ require_once 'app/init.php';
 
 if (isset($_GET['as'], $_GET['item']))
 {
-	// $_GET['as'] is where as=delete is in index.php
+	// $_GET['as'] is where as=done is in index.php
 	$as = $_GET['as'];
 	$item = $_GET['item'];
 
-	// if $as equals to delete then prepare the query and execute it
+	// if $as equals to done then prepare the query and execute it
 	// switch is the same as if statement
 	switch ($as) {
-		case 'delete':
-			$doneQuery = $db->prepare("
-					DELETE FROM ET_TodoList
+		case 'done':
+            $doneQuery = $db->prepare("
+					UPDATE phptodolist_items
+					SET done = 1
 					WHERE id = :item
 					AND user = :user
 				");
@@ -27,4 +28,3 @@ if (isset($_GET['as'], $_GET['item']))
 	}
 }
 
-header('Location: index.php');

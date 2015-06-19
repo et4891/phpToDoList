@@ -1,5 +1,6 @@
 body {
-	background-color: #eceff0;
+	/*background-color: #eceff0;*/
+	background-color: #73739a;
 }
 
 body,
@@ -9,7 +10,7 @@ input {
 }
 
 input {
-	background-color: #D6E874;
+	background-color: #d9edf7;
 }
 
 a {
@@ -19,7 +20,9 @@ a {
 
 /* List */
 .list {
-	background-color: #E5E579;
+    background-image: linear-gradient(to bottom, #dff0d8 0px, #c8e5bc 100%);
+    background-repeat: repeat-x;
+    border-color: #b2dba1;
 	margin: 20px auto;
 	width: 100%;
 	max-width: 500px;
@@ -44,6 +47,8 @@ a {
 
 .items .item.done {
 	text-decoration: line-through;
+    -moz-text-decoration-color: red;
+    -moz-text-decoration-style: double;
 }
 
 .items li,
@@ -66,7 +71,7 @@ a {
 .done-button {
 	display:inline-block;
 	font-size: .8em;
-	background-color: #a9dfe1;
+	background-color: #f0ad4e;
 	color: #363639;
 	padding: 3px 6px;
 	border: 0;
@@ -87,12 +92,12 @@ a {
 
 .done-button:hover {
 	opacity: 1;
-	color: #FF0000;
+	color: #ff7d7d;
 }
 
 .delete-button:hover {
 	opacity: 1;
-	background-color: #FF0000;
+	background-color: #ff7d7d;
 	color: #fff;
 }
 
@@ -104,7 +109,7 @@ a {
 /* Submit button */
 
 .submit {
-	background-color: #fff;
+	background-color: #efefb1;
 	padding: 5px 10px;
 	border: 1px solid #ddd;
 	width: 100%;
@@ -113,5 +118,5 @@ a {
 }
 
 .submit:hover {
-	background-color: #ECEFF0;
+	background-color: #fefedc;
 }
