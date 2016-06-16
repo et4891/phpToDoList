@@ -7,22 +7,28 @@
  */
 require_once 'app/init.php';
 
-if (isset($_POST['todoText']))
+if (isset($_POST['description']))
 {
-    $todoText = htmlentities(trim($_POST['todoText']), ENT_QUOTES);
-    $name = htmlentities(trim($_POST['name']), ENT_QUOTES);
+    $name       = htmlentities(trim($_POST['name']), ENT_QUOTES);
+    $issue      = htmlentities(trim($_POST['issue']), ENT_QUOTES);
+    $description   = htmlentities(trim($_POST['description']), ENT_QUOTES);
+    $assignTo   = htmlentities(trim($_POST['assignTo']), ENT_QUOTES);
+    $date = date('m/d');
 
-    if (!empty($todoText))
+    if (!empty($description))
     {
         $addedQuery = $db->prepare("
-				INSERT INTO phptodolist_items (name, todoText, done, created)
-				VALUES (:name, :todoText, 0, NOW())
+				INSERT INTO issues (date, name, issue, description, assignTo, done, created)
+				VALUES (:date, :name, :issue, :description, :assignTo, 0, NOW())
 			");
 
         //use array() instead of [] if error happens in servers
         $addedQuery->execute(array(
+            'date'     => $date,
             'name'     => $name,
-            'todoText' => $todoText,
+            'issue'    => $issue,
+            'description' => $description,
+            'assignTo' => $assignTo,
         ));
     }
 

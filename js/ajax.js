@@ -12,23 +12,39 @@ $(document).ready(function() {
     //You can use event delegation to make sure that the events are also automatically bound to newly added items.
     $('.item-add').on('click', '.submit', function(e){
         e.preventDefault();
-        
-        var todoText = $("input[name='todoText']").val();
-        var name = $("input[name='name']").val();
 
-        //Ajax for adding todoText
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1; //January is 0!
+        today = (mm + ' / ' + dd);
+
+        var name = $("input[name='name']").val();
+        var issue = $("input[name='issue']").val();
+        var description = $("input[name='description']").val();
+        var assignTo = $("input[name='assignTo']").val();
+
+        //Ajax for adding description
         $.ajax({
             method: "POST",
             url: "add-ajax.php",
-            data: {todoText: todoText,
-                   name: name},
+            data: {name: name,
+                issue: issue,
+                description: description,
+                assignTo: assignTo,
+                today: today},
             dataType: "json"
         })
             .done(function(data){
                 $('p.empty').empty();
                 $('input.input').val('');
-                $('table.items').append('<tr><td>'+todoText+' '+
-                '</td><td><a href="done-ajax.php?as=done&item=' + data.id +
+                $('table.items').append(
+                    '<tr>'+
+                    '<td>'+today+'</td>'+
+                    '<td>'+name+'</td>'+
+                    '<td>'+issue+'</td>'+
+                    '<td>'+description+'</td>'+
+                    '<td>'+assignTo+'</td>'+
+                    '<td><a href="done-ajax.php?as=done&item=' + data.id +
                 '" class="done-button">Mark as Done</a></td></tr>');
             })
     });// end .item-add on click
@@ -59,7 +75,8 @@ $(document).ready(function() {
                     url: "done-ajax.php"
                 })
                     .done(function(){
-                        $clicked.prev().addClass('item done');
+                        // $clicked.prev().addClass('item done');
+                        $clicked.parent().parent().addClass('item done');
                         $clicked.removeClass('done-button').empty();
                         $clicked.addClass('delete-button').text('Delete Task');
                         $clicked.removeAttr('href');
