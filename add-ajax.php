@@ -10,16 +10,18 @@ require_once 'app/init.php';
 if (isset($_POST['todoText']))
 {
     $todoText = htmlentities(trim($_POST['todoText']), ENT_QUOTES);
+    $name = htmlentities(trim($_POST['name']), ENT_QUOTES);
 
     if (!empty($todoText))
     {
         $addedQuery = $db->prepare("
-				INSERT INTO phptodolist_items (todoText, done, created)
-				VALUES (:todoText, 0, NOW())
+				INSERT INTO phptodolist_items (name, todoText, done, created)
+				VALUES (:name, :todoText, 0, NOW())
 			");
 
         //use array() instead of [] if error happens in servers
         $addedQuery->execute(array(
+            'name'     => $name,
             'todoText' => $todoText,
         ));
     }
