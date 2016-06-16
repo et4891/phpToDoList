@@ -24,8 +24,9 @@ a {
     background-repeat: repeat-x;
     border-color: #b2dba1;
 	margin: 20px auto;
-	width: 100%;
-	max-width: 500px;
+	/*width: 100%;*/
+	/*max-width: 1200px;*/
+	width: 1200px;
 	padding: 20px;
 	border-radius: 10px;
 	box-shadow: 3px 3px 0 rgba(0,0,0, .1);
@@ -35,6 +36,16 @@ a {
 .list .header {
 	font-family: "Shadows Into Light Two", cursive;
 	margin: 0 0 10px 0;
+}
+
+
+/* Table */
+thead {
+	font-weight: 800;
+}
+
+th {
+	text-align: left;
 }
 
 /* Items */
@@ -120,3 +131,7 @@ a {
 .submit:hover {
 	background-color: #fefedc;
 }
+
+/* table column widths */
+.w100 {width: 100px;}
+.w660 {width: 660px;}

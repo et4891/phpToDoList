@@ -11,32 +11,35 @@ $(document).ready(function() {
     //You are binding your event handlers when the page opens / the DOM is ready, on $(document).ready(). Then you add new items using ajax but the links in these items will not have your event handlers bound to them.
     //You can use event delegation to make sure that the events are also automatically bound to newly added items.
     $('.item-add').on('click', '.submit', function(e){
-        var todoText = $("input[name='todoText']").val();
         e.preventDefault();
+        
+        var todoText = $("input[name='todoText']").val();
+        var name = $("input[name='name']").val();
 
         //Ajax for adding todoText
         $.ajax({
             method: "POST",
             url: "add-ajax.php",
-            data: {todoText: todoText},
+            data: {todoText: todoText,
+                   name: name},
             dataType: "json"
         })
             .done(function(data){
                 $('p.empty').empty();
                 $('input.input').val('');
-                $('ul.items').append('<li><span>'+todoText+' '+
-                '</span><a href="done-ajax.php?as=done&item=' + data.id +
-                '" class="done-button">Mark as Done</a></li>');
+                $('table.items').append('<tr><td>'+todoText+' '+
+                '</td><td><a href="done-ajax.php?as=done&item=' + data.id +
+                '" class="done-button">Mark as Done</a></td></tr>');
             })
     });// end .item-add on click
 
     /* doubleD() */
     //function for when done  / delete button is clicked
-    //where the $("ul.item") can be any element that contains the newly added elements and that is on the page when this code executes.
+    //where the $("table.item") can be any element that contains the newly added elements and that is on the page when this code executes.
     //This applies to all event handlers that you want to bind to elements that are not yet on the page when the DOM is ready.
-    //Which means do not use $('li') use it's parent or further using ('.list') would work too
+    //Which means do not use $('td') use it's parent or further using ('.list') would work too
     function doubleD(button){
-        $('ul.items').on('click', button, function(e){
+        $('table.items').on('click', button, function(e){
             e.preventDefault();
 
             //making sure only work with the current element
@@ -72,7 +75,7 @@ $(document).ready(function() {
                     url: "delete-ajax.php"
                 })
                     .done(function(){
-                        $clicked.closest('li').remove();
+                        $clicked.closest('tr').remove();
                         $clicked.remove();
                     });
             }
