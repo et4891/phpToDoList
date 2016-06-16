@@ -28,61 +28,58 @@ $(document).ready(function() {
                 '</span><a href="done-ajax.php?as=done&item=' + data.id +
                 '" class="done-button">Mark as Done</a></li>');
             })
-    });
+    });// end .item-add on click
 
-    //Action when done button is clicked
+    /* doubleD() */
+    //function for when done  / delete button is clicked
     //where the $("ul.item") can be any element that contains the newly added elements and that is on the page when this code executes.
     //This applies to all event handlers that you want to bind to elements that are not yet on the page when the DOM is ready.
     //Which means do not use $('li') use it's parent or further using ('.list') would work too
-    $('ul.items').on('click', '.done-button', function(e){
-        e.preventDefault();
+    function doubleD(button){
+        $('ul.items').on('click', button, function(e){
+            e.preventDefault();
 
-        //making sure only work with the current element
-        var $clicked = $(this);
+            //making sure only work with the current element
+            var $clicked = $(this);
 
-        //get the href attribute value and parse it to get the item # which is the item's id
-        var attrValue = $clicked.attr('href');
-        var parseAttrValue = attrValue.split('&');
-        var parseItem = parseAttrValue[1].split('=');
-        var item = parseItem[1];
+            //get the href attribute value and parse it to get the item # which is the item's id
+            var attrValue = $clicked.attr('href');
+            var parseAttrValue = attrValue.split('&');
+            var parseItem = parseAttrValue[1].split('=');
+            var item = parseItem[1];
 
-        //Ajax for Mark as Done Button
-        $.ajax({
-            method: "GET",
-            data:{as: 'done', item: item},
-            url: "done-ajax.php"
-        })
-            .done(function(){
-                $clicked.prev().addClass('item done');
-                $clicked.removeClass('done-button').empty();
-                $clicked.addClass('delete-button').text('Delete Task');
-                $clicked.removeAttr('href');
-                $clicked.attr('href','delete-ajax.php?as=delete&item='+item);
-            });
-    });
+            if(button == '.done-button'){
+                //Ajax for Mark as Done Button
+                $.ajax({
+                    method: "GET",
+                    data:{as: 'done', item: item},
+                    url: "done-ajax.php"
+                })
+                    .done(function(){
+                        $clicked.prev().addClass('item done');
+                        $clicked.removeClass('done-button').empty();
+                        $clicked.addClass('delete-button').text('Delete Task');
+                        $clicked.removeAttr('href');
+                        $clicked.attr('href','delete-ajax.php?as=delete&item='+item);
+                    });
+            }
 
-    //Action when delete button is clicked
-    $('ul.items').on('click', '.delete-button', function(e){
-        e.preventDefault();
+            if(button == '.delete-button'){
+                //Ajax for Delete Task Button
+                $.ajax({
+                    method: "GET",
+                    data:{as: 'delete', item: item},
+                    url: "delete-ajax.php"
+                })
+                    .done(function(){
+                        $clicked.closest('li').remove();
+                        $clicked.remove();
+                    });
+            }
+        });
+    } //end doubleD()
 
-        //making sure only work with the current element
-        var $clicked = $(this);
+    doubleD('.done-button');
+    doubleD('.delete-button');
 
-        //get the href attribute value and parse it to get the item # which is the item's id
-        var attrValue = $clicked.attr('href');
-        var parseAttrValue = attrValue.split('&');
-        var parseItem = parseAttrValue[1].split('=');
-        var item = parseItem[1];
-
-        //Ajax for Mark as Done Button
-        $.ajax({
-            method: "GET",
-            data:{as: 'delete', item: item},
-            url: "delete-ajax.php"
-        })
-            .done(function(){
-                $clicked.closest('li').remove();
-                $clicked.remove();
-            });
-    });
-});
+}); // end document ready
