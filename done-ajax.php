@@ -16,13 +16,11 @@ if (isset($_GET['as'], $_GET['item']))
 					UPDATE phptodolist_items
 					SET done = 1
 					WHERE id = :item
-					AND user = :user
 				");
 
 			//use array() instead of [] if error happens in servers
 			$doneQuery->execute(array(
 					'item' => $item,
-					'user' => $_SESSION['user_id']
 				));
 			break;
 	}

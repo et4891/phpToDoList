@@ -15,13 +15,11 @@ if (isset($_GET['as'], $_GET['item']))
             $doneQuery = $db->prepare("
 					DELETE FROM phptodolist_items
 					WHERE id = :item
-					AND user = :user
 				");
 
 			//use array() instead of [] if error happens in servers
 			$doneQuery->execute(array(
 					'item' => $item,
-					'user' => $_SESSION['user_id']
 				));
 			break;
 	}

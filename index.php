@@ -4,17 +4,11 @@ require_once 'app/init.php';
 $itemsQuery = $db->prepare("
 		SELECT id, todoText, done
 		FROM phptodolist_items
-		WHERE user = :user
 	");
 
-//use array() instead of [] if error happens in servers
-$itemsQuery->execute(array(
-		'user' => $_SESSION['user_id']
-	));
-
+$itemsQuery->execute();
 //use array() instead of [] if error happens in servers
 $items = $itemsQuery->rowCount() ? $itemsQuery : array();
-
 ?>
 
 <!doctype html>

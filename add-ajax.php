@@ -14,14 +14,13 @@ if (isset($_POST['todoText']))
     if (!empty($todoText))
     {
         $addedQuery = $db->prepare("
-				INSERT INTO phptodolist_items (todoText, user, done, created)
-				VALUES (:todoText, :user, 0, NOW())
+				INSERT INTO phptodolist_items (todoText, done, created)
+				VALUES (:todoText, 0, NOW())
 			");
 
         //use array() instead of [] if error happens in servers
         $addedQuery->execute(array(
             'todoText' => $todoText,
-            'user' => $_SESSION['user_id']
         ));
     }
 
