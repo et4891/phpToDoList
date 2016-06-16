@@ -2,8 +2,8 @@
 require_once 'app/init.php';
 
 $itemsQuery = $db->prepare("
-		SELECT id, name, todoText, done
-		FROM phptodolist_items
+		SELECT id, date, name, issue, description, assignTo, done
+		FROM issues
 	");
 
 $itemsQuery->execute();
@@ -27,7 +27,7 @@ $items = $itemsQuery->rowCount() ? $itemsQuery : array();
 </head>
 <body>
 	<div class="list">
-		<h1 class="header">To do lists.</h1>
+		<h1 class="header">*NOC BOARD*</h1>
 
 		<?php if(!empty($items)): ?>
 			<table class="items">
@@ -43,16 +43,14 @@ $items = $itemsQuery->rowCount() ? $itemsQuery : array();
 				</thead>
 				<tbody>
 					<?php foreach($items as $item): ?>
-						<tr>
-							<td>Aug-10</td>
+						<tr class="item<?php echo $item['done'] ? ' done' : '' ?>">
+                            <td><?php echo $item['date']; ?></td>
+							<td><?php echo $item['name']; ?></td>
+							<td><?php echo $item['issue']; ?></td>
 							<td>
-								<?php echo $item['name']; ?>
+								<?php echo $item['description']; ?>
 							</td>
-							<td>83726</td>
-							<td style="overflow-x: auto; width: 660px;" class="item<?php echo $item['done'] ? ' done' : '' ?>">
-								<?php echo $item['todoText']; ?>
-							</td>
-							<td>John</td>
+							<td><?php echo $item['assignTo']; ?></td>
 							<td>
 								<?php if($item['done']): ?>
 									<a href="delete-ajax.php?as=delete&item=<?php echo $item['id']; ?>" class="delete-button">Delete Task</a>
@@ -87,7 +85,7 @@ $items = $itemsQuery->rowCount() ? $itemsQuery : array();
 		<form class="item-add" action="add-ajax.php" method="post">
 			<input type="text" name="name" placeholder="       Type your name here" class="input" autocomplete="on" required>
             <input type="text" name="issue" placeholder="       Type your issue# here" class="input" autocomplete="on" required>
-			<input type="text" name="todoText" placeholder="       Type a new item here." class="input" autocomplete="on" required>
+			<input type="text" name="description" placeholder="       Type a new item here." class="input" autocomplete="on" required>
             <input type="text" name="assignTo" placeholder="       Type name of person assigning to" class="input" autocomplete="on" required>
 			<input type="submit" value="Add" class="submit">
 		</form>
